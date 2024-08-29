@@ -312,3 +312,200 @@
     };
   </script>
 </html>
+
+
+
+// count-down prograss bar
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progressbar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body align="center">
+    <h1>Progressbar with Timer</h1>
+
+    <form action="" id="form-1">
+        <input type="text" name="" id="" value="" placeholder="Enter time in hours">hours <br>
+        <input type="text" name="" id="" value="" placeholder="Enter time in minutes">minutes <br><br>
+    </form>
+
+    <button onclick="timeFunction()">Start Timer</button>
+    <button onclick="stopTimer()">Stop Timer</button>
+    <button onclick="resetTimer()">Reset Timer</button>
+
+    <div id="progress">
+        <div id="progress-bar"></div>
+    </div>
+
+    <h2 id="demo"></h2>
+
+    <!-- <script src="script.js"></script> -->
+     <script>
+        let t=0;
+let timerInterval;
+function timeFunction(){
+    if(!window.total){
+        let x=document.querySelector("#form-1");
+        let hour=x.elements[0].value;
+        let min=x.elements[1].value;
+        window.t=hour*3600+min*60;
+        window.total=window.t;
+    }
+    
+    timer();
+}
+
+function timer(){
+    timerInterval=setInterval(()=>{
+        let temp=window.t;
+        window.t=window.t-1;
+        let h=Math.floor(temp/3600);
+        let m=Math.floor((temp%3600)/60);
+        let s=Math.floor(temp-3600*h-60*m);
+        m=checkTime(m);
+        s=checkTime(s);
+        document.querySelector("#demo").innerHTML=h+" hour: "+m+" min: "+s+" sec"
+        document.querySelector("#progress-bar").style.width= (temp*100)/ window.total +"%";
+        // let t=setTimeout(timer,1000);
+        if(temp<0){
+            clearInterval(timerInterval);
+            document.querySelector("#demo").innerHTML= "Time out";
+        }
+    },1000)
+    
+}
+
+
+function stopTimer(){
+    clearInterval(timerInterval);
+}
+
+function resetTimer(){
+    clearInterval(timerInterval);
+    t=0;
+    window.total=0;
+    document.querySelector("#demo").innerHTML="Time Reset";
+    document.querySelector("#progress-bar").style.width="0%";
+    let x=document.querySelector("#form-1");
+    //Reset the input field
+   x.elements[0].value="";
+   x.elements[1].value="";
+}
+
+function checkTime(i){
+    if(i<10){
+        i="0"+i;
+    }
+    return i;
+}
+     </script>
+</body>
+</html>
+
+
+
+
+// data fetch from a json file
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+</head>
+<body>
+    <label for="">search here</label>
+    <input type="text" name="" id="search">
+    <!-- <script src="script.js"></script> -->
+     <script>
+        
+async function fetchApi() 
+{
+    const response = await fetch("./product.json");
+    const data = await response.json();
+     
+    console.log(data);
+
+    let table;
+    let tBody;
+
+    function createTable() 
+    {
+        table = document.createElement("table");
+       
+        const tableHeader = `
+        <thead>
+        <tr>
+        <th>Category</th>
+        <th>Success</th>
+        <th>Name</th>
+        </tr>
+        </thead>
+        `;
+
+        table.innerHTML = tableHeader;
+        document.body.appendChild(table);
+
+        tBody = document.createElement("tbody");
+        table.appendChild(tBody);
+    }
+
+    function updateTable(filteredData) {
+        if (!table) {
+            createTable();
+        }
+       
+        tBody.innerHTML = '';
+        filteredData.forEach(element => {
+            const row = document.createElement("tr");
+            row.style.backgroundColor = element.success ? "green" : "red";
+            row.innerHTML = `
+            <td>${element.category}</td>
+            <td>${element.success}</td>
+            <td>${element.name}</td>
+            `;
+            tBody.appendChild(row);
+        });
+    }
+
+    const searchInp = document.querySelector("#search");
+
+    searchInp.addEventListener("input", () => {
+        let searchTerm = searchInp.value.toLowerCase();
+        const filteredData = data.products.filter(product => {
+            return product.name.toLowerCase().includes(searchTerm);
+        });
+
+        if (filteredData.length > 0) {
+            updateTable(filteredData);
+        } else {
+            if (table) {
+                table.remove();
+                table = null;
+                tBody = null;
+            }
+        }
+    });
+}
+
+fetchApi();
+
+     </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
