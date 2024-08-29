@@ -1,0 +1,314 @@
+// Making a Accordian
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accordion Example</title>
+  </head>
+  <body>
+    <h1>Make Accordion</h1>
+
+    <div id="a"></div>
+
+    <script>
+      window.onload = async () => {
+        const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+        const data = await res.json();
+
+        const accordionContainer = document.getElementById("a");
+
+        data.map((val, ind) => {
+          let itemContainer = document.createElement("div");
+          itemContainer.style.marginBottom = "10px";
+          let para = document.createElement("p");
+          para.innerHTML = val.title;
+
+          let button = document.createElement("button");
+          button.innerHTML = "v";
+          button.style.marginLeft = "10px";
+
+          let ans = document.createElement("div");
+          ans.style.display = "none";
+          ans.innerHTML = `This is additional content for ${val.title}`;
+
+          itemContainer.appendChild(para);
+          itemContainer.appendChild(button);
+          itemContainer.appendChild(ans);
+
+          accordionContainer.appendChild(itemContainer);
+
+          let isOpen = true;
+
+          button.addEventListener("click", () => {
+            isOpen = !isOpen;
+            ans.style.display = isOpen ? "none" : "block";
+            button.innerHTML = isOpen ? "v" : "^";
+          });
+        });
+      };
+    </script>
+  </body>
+</html>
+
+
+
+
+// Async Await TestPad
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello Ecommerce</h1>
+
+    <table id="table" border="1">
+      <tr>
+        Name
+      </tr>
+      <tr>
+        Email
+      </tr>
+      <tr>
+        Image
+      </tr>
+    </table>
+
+    <script>
+      window.onload = async () => {
+        const res = await fetch("https://reqres.in/api/users?page=2");
+        const data = await res.json();
+        const finalData = data.data;
+        console.log(data.data);
+        let table = document.getElementById("table");
+        finalData.map((val, ind) => {
+          let name = document.createElement("tr");
+          let email = document.createElement("tr");
+          let image = document.createElement("img");
+          name.innerHTML = val.first_name;
+          email.innerHTML = val.email;
+          image.setAttribute("src",val.avatar)
+          table.append(name, email,image);
+        });
+      };
+    </script>
+  </body>
+</html>
+
+
+
+// Image Slider
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container">
+      <input type="text" name="name" id="input" />
+      <button id="btn">Add</button>
+    </div>
+    <img
+      src=""
+      alt="Waiting for the newwork connect...."
+      id="img"
+      style="height: 200px; width: 200px"
+    />
+    <p id="p"></p>
+    <div class="container1">
+      <button id="prev">Prev</button>
+      <button id="next">Next</button>
+    </div>
+  </body>
+  <script>
+    let input = document.getElementById("input");
+    let btn = document.getElementById("btn");
+    let prev = document.getElementById("prev");
+    let next = document.getElementById("next");
+    let p = document.getElementById("p");
+    let img = document.getElementById("img");
+    let arr = [{}];
+    let id = 0;
+    let imgNo = 0;
+    btn.addEventListener("click", () => {
+      let val = input.value;
+      if (val === "") {
+        alert("Please Enter Some value here....");
+        return;
+      }
+      img.src = val;
+      arr.push({ id: id++, imgSrc: val });
+      p.innerHTML = `Image Added ${++imgNo}`
+      input.value = "";
+      console.log(arr);
+    });
+    prev.addEventListener("click", () => {
+      let checkVal = arr.find((val) => val.imgSrc === img.src);
+      if (checkVal.id == 0) {
+        img.src = arr[arr.length - 1].imgSrc;
+      } else img.src = arr[checkVal.id].imgSrc;
+    });
+    next.addEventListener("click", () => {
+      let checkVal = arr.find((val) => val.imgSrc === img.src);
+      if (checkVal.id != arr[arr.length - 1].id) {
+        img.src = arr[checkVal.id + 2].imgSrc;
+      } else img.src = arr[1].imgSrc;
+    });
+    window.addEventListener("keypress", (e) => {
+      if (e.key == 1) img.src = arr[1].imgSrc;
+      else if (e.key == 2) img.src = arr[2].imgSrc;
+      else if (e.key == 3) img.src = arr[3].imgSrc;
+      else if (e.key == 4) img.src = arr[4].imgSrc;
+      else if (e.key == 5) img.src = arr[5].imgSrc;
+      else if (e.key == 6) img.src = arr[6].imgSrc;
+      else if (e.key == 7) img.src = arr[7].imgSrc;
+      else if (e.key == 8) img.src = arr[8].imgSrc;
+      else if (e.key == 9) img.src = arr[9].imgSrc;
+    });
+  </script>
+</html>
+
+
+
+// Progress Bar
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #bar {
+        border: 1px solid black;
+        height: 20px;
+        width: 100%;
+      }
+
+      #pbar {
+        height: 100%;
+        background-color: red;
+        width: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div id="bar">
+        <div id="pbar"></div>
+      </div>
+      <div id="time">
+        <p id="dtime"></p>
+      </div>
+      <div id="input">Enter time: <input type="text" id="inputtime" /></div>
+      <div id="btn">
+        <button id="start">Start</button>
+        <button id="pbtn">Pause</button>
+        <button id="rbtn">Reset</button>
+      </div>
+    </div>
+    <script>
+      const sbtn = document.getElementById("start");
+      const pbtn = document.getElementById("pbtn");
+      const rbtn = document.getElementById("rbtn");
+      const pbar = document.getElementById("pbar");
+      const dtime = document.getElementById("dtime");
+      var interval;
+      sbtn.addEventListener("click", () => {
+        const input = document.getElementById("inputtime").value.trim();
+        console.log(interval);
+        if (interval !== undefined) {
+          return;
+        }
+        let sec = input * 60;
+        const totalSec = sec;
+        pbar.style.width = "0";
+        pbar.style.border = "1px solid black";
+        interval = setInterval(() => {
+          if (sec <= 0) {
+            clearInterval(interval);
+            return;
+          }
+          sec--;
+          const newVal = totalSec - sec;
+          const width = (newVal / totalSec) * 100;
+          pbar.style.width = `${width}%`;
+          dtime.innerHTML = `${sec}`;
+        }, 1000);
+      });
+      rbtn.addEventListener("click", () => {
+        clearInterval(interval);
+        pbar.style.width = "0";
+        pbar.style.border = "0";
+        dtime.innerHTML = "";
+      });
+    </script>
+  </body>
+</html>
+
+
+// Search Bar
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" name="name" id="name" />
+    <button>Submit</button>
+    <div id="result"><h1>Result</h1></div>
+  </body>
+  <script>
+    let input = document.getElementById("name");
+    let resDiv = document.getElementById("result");
+    let searchValue;
+    let timeOut;
+    input.addEventListener("keypress", (e) => {
+        // this for the before timeout -> that is clearing -> this is for the clearing the before settimeout
+      clearTimeout(timeOut);
+      searchValue = e.target.value;
+      // this is holding for the next word typing -> if type then make a get request and send to the server
+      timeOut = setTimeout(() => {
+        fetchData(searchValue);
+      }, 5000);
+    });
+
+    const fetchData = async (val) => {
+      const res = await fetch(`https://dummyjson.com/products/search?q=${val}`);
+      const data = await res.json();
+      console.log(data.products);
+      displayData(data.products);
+    };
+
+    const displayData = (val) => {
+      resDiv.innerHTML = "";
+      if (val.length > 0) {
+        val.map((val, ind) => {
+          let res = document.createElement("div");
+          res.innerHTML = val.brand
+            ? `${val.brand}`
+            : "No brand information available";
+          resDiv.appendChild(res);
+        });
+      }
+    };
+  </script>
+</html>
