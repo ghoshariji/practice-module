@@ -1,6 +1,5 @@
 // Making a Accordian
 
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,11 +52,7 @@
   </body>
 </html>
 
-
-
-
 // Async Await TestPad
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -94,18 +89,15 @@
           let image = document.createElement("img");
           name.innerHTML = val.first_name;
           email.innerHTML = val.email;
-          image.setAttribute("src",val.avatar)
-          table.append(name, email,image);
+          image.setAttribute("src", val.avatar);
+          table.append(name, email, image);
         });
       };
     </script>
   </body>
 </html>
 
-
-
 // Image Slider
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -149,7 +141,7 @@
       }
       img.src = val;
       arr.push({ id: id++, imgSrc: val });
-      p.innerHTML = `Image Added ${++imgNo}`
+      p.innerHTML = `Image Added ${++imgNo}`;
       input.value = "";
       console.log(arr);
     });
@@ -179,11 +171,7 @@
   </script>
 </html>
 
-
-
 // Progress Bar
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -259,10 +247,7 @@
   </body>
 </html>
 
-
 // Search Bar
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -282,7 +267,7 @@
     let searchValue;
     let timeOut;
     input.addEventListener("keypress", (e) => {
-        // this for the before timeout -> that is clearing -> this is for the clearing the before settimeout
+      // this for the before timeout -> that is clearing -> this is for the clearing the before settimeout
       clearTimeout(timeOut);
       searchValue = e.target.value;
       // this is holding for the next word typing -> if type then make a get request and send to the server
@@ -313,26 +298,34 @@
   </script>
 </html>
 
-
-
 // count-down prograss bar
-
-
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Progressbar</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body align="center">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body align="center">
     <h1>Progressbar with Timer</h1>
 
     <form action="" id="form-1">
-        <input type="text" name="" id="" value="" placeholder="Enter time in hours">hours <br>
-        <input type="text" name="" id="" value="" placeholder="Enter time in minutes">minutes <br><br>
+      <input
+        type="text"
+        name=""
+        id=""
+        value=""
+        placeholder="Enter time in hours"
+      />hours <br />
+      <input
+        type="text"
+        name=""
+        id=""
+        value=""
+        placeholder="Enter time in minutes"
+      />minutes <br /><br />
     </form>
 
     <button onclick="timeFunction()">Start Timer</button>
@@ -340,108 +333,101 @@
     <button onclick="resetTimer()">Reset Timer</button>
 
     <div id="progress">
-        <div id="progress-bar"></div>
+      <div id="progress-bar"></div>
     </div>
 
     <h2 id="demo"></h2>
 
     <!-- <script src="script.js"></script> -->
-     <script>
-        let t=0;
-let timerInterval;
-function timeFunction(){
-    if(!window.total){
-        let x=document.querySelector("#form-1");
-        let hour=x.elements[0].value;
-        let min=x.elements[1].value;
-        window.t=hour*3600+min*60;
-        window.total=window.t;
-    }
-    
-    timer();
-}
-
-function timer(){
-    timerInterval=setInterval(()=>{
-        let temp=window.t;
-        window.t=window.t-1;
-        let h=Math.floor(temp/3600);
-        let m=Math.floor((temp%3600)/60);
-        let s=Math.floor(temp-3600*h-60*m);
-        m=checkTime(m);
-        s=checkTime(s);
-        document.querySelector("#demo").innerHTML=h+" hour: "+m+" min: "+s+" sec"
-        document.querySelector("#progress-bar").style.width= (temp*100)/ window.total +"%";
-        // let t=setTimeout(timer,1000);
-        if(temp<0){
-            clearInterval(timerInterval);
-            document.querySelector("#demo").innerHTML= "Time out";
+    <script>
+      let t = 0;
+      let timerInterval;
+      function timeFunction() {
+        if (!window.total) {
+          let x = document.querySelector("#form-1");
+          let hour = x.elements[0].value;
+          let min = x.elements[1].value;
+          window.t = hour * 3600 + min * 60;
+          window.total = window.t;
         }
-    },1000)
-    
-}
 
+        timer();
+      }
 
-function stopTimer(){
-    clearInterval(timerInterval);
-}
+      function timer() {
+        timerInterval = setInterval(() => {
+          let temp = window.t;
+          window.t = window.t - 1;
+          let h = Math.floor(temp / 3600);
+          let m = Math.floor((temp % 3600) / 60);
+          let s = Math.floor(temp - 3600 * h - 60 * m);
+          m = checkTime(m);
+          s = checkTime(s);
+          document.querySelector("#demo").innerHTML =
+            h + " hour: " + m + " min: " + s + " sec";
+          document.querySelector("#progress-bar").style.width =
+            (temp * 100) / window.total + "%";
+          // let t=setTimeout(timer,1000);
+          if (temp < 0) {
+            clearInterval(timerInterval);
+            document.querySelector("#demo").innerHTML = "Time out";
+          }
+        }, 1000);
+      }
 
-function resetTimer(){
-    clearInterval(timerInterval);
-    t=0;
-    window.total=0;
-    document.querySelector("#demo").innerHTML="Time Reset";
-    document.querySelector("#progress-bar").style.width="0%";
-    let x=document.querySelector("#form-1");
-    //Reset the input field
-   x.elements[0].value="";
-   x.elements[1].value="";
-}
+      function stopTimer() {
+        clearInterval(timerInterval);
+      }
 
-function checkTime(i){
-    if(i<10){
-        i="0"+i;
-    }
-    return i;
-}
-     </script>
-</body>
+      function resetTimer() {
+        clearInterval(timerInterval);
+        t = 0;
+        window.total = 0;
+        document.querySelector("#demo").innerHTML = "Time Reset";
+        document.querySelector("#progress-bar").style.width = "0%";
+        let x = document.querySelector("#form-1");
+        //Reset the input field
+        x.elements[0].value = "";
+        x.elements[1].value = "";
+      }
+
+      function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+    </script>
+  </body>
 </html>
-
-
-
 
 // data fetch from a json file
 
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product</title>
-</head>
-<body>
+  </head>
+  <body>
     <label for="">search here</label>
-    <input type="text" name="" id="search">
+    <input type="text" name="" id="search" />
     <!-- <script src="script.js"></script> -->
-     <script>
-        
-async function fetchApi() 
-{
-    const response = await fetch("./product.json");
-    const data = await response.json();
-     
-    console.log(data);
+    <script>
+      async function fetchApi() {
+        const response = await fetch("./product.json");
+        const data = await response.json();
 
-    let table;
-    let tBody;
+        console.log(data);
 
-    function createTable() 
-    {
-        table = document.createElement("table");
-       
-        const tableHeader = `
+        let table;
+        let tBody;
+
+        function createTable() {
+          table = document.createElement("table");
+
+          const tableHeader = `
         <thead>
         <tr>
         <th>Category</th>
@@ -451,20 +437,20 @@ async function fetchApi()
         </thead>
         `;
 
-        table.innerHTML = tableHeader;
-        document.body.appendChild(table);
+          table.innerHTML = tableHeader;
+          document.body.appendChild(table);
 
-        tBody = document.createElement("tbody");
-        table.appendChild(tBody);
-    }
-
-    function updateTable(filteredData) {
-        if (!table) {
-            createTable();
+          tBody = document.createElement("tbody");
+          table.appendChild(tBody);
         }
-       
-        tBody.innerHTML = '';
-        filteredData.forEach(element => {
+
+        function updateTable(filteredData) {
+          if (!table) {
+            createTable();
+          }
+
+          tBody.innerHTML = "";
+          filteredData.forEach((element) => {
             const row = document.createElement("tr");
             row.style.backgroundColor = element.success ? "green" : "red";
             row.innerHTML = `
@@ -473,39 +459,333 @@ async function fetchApi()
             <td>${element.name}</td>
             `;
             tBody.appendChild(row);
-        });
-    }
-
-    const searchInp = document.querySelector("#search");
-
-    searchInp.addEventListener("input", () => {
-        let searchTerm = searchInp.value.toLowerCase();
-        const filteredData = data.products.filter(product => {
-            return product.name.toLowerCase().includes(searchTerm);
-        });
-
-        if (filteredData.length > 0) {
-            updateTable(filteredData);
-        } else {
-            if (table) {
-                table.remove();
-                table = null;
-                tBody = null;
-            }
+          });
         }
-    });
-}
 
-fetchApi();
+        const searchInp = document.querySelector("#search");
 
-     </script>
+        searchInp.addEventListener("input", () => {
+          let searchTerm = searchInp.value.toLowerCase();
+          const filteredData = data.products.filter((product) => {
+            return product.name.toLowerCase().includes(searchTerm);
+          });
+
+          if (filteredData.length > 0) {
+            updateTable(filteredData);
+          } else {
+            if (table) {
+              table.remove();
+              table = null;
+              tBody = null;
+            }
+          }
+        });
+      }
+
+      fetchApi();
+    </script>
+  </body>
+</html>
+
+// Promodro Clock
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Clock</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="pomodoro-container">
+      <h1>Pomodoro Timer</h1>
+      <div id="timer">
+        <span id="minutes">25</span>:<span id="seconds">00</span>
+      </div>
+      <div class="controls">
+        <button id="start">Start</button>
+        <button id="pause">Pause</button>
+        <button id="reset">Reset</button>
+      </div>
+      <div class="status">
+        <p id="status">Work</p>
+      </div>
+    </div>
+
+    <script>
+      let workTime = 25;
+      let breakTime = 5;
+      let isWorkTime = true;
+      let isPaused = true;
+      let minutes = workTime;
+      let seconds = 0;
+      let interval;
+
+      const minutesDisplay = document.getElementById("minutes");
+      const secondsDisplay = document.getElementById("seconds");
+      const statusDisplay = document.getElementById("status");
+
+      function startTimer() {
+        if (isPaused) {
+          isPaused = false;
+          interval = setInterval(countdown, 1000);
+        }
+      }
+
+      function pauseTimer() {
+        clearInterval(interval);
+        isPaused = true;
+      }
+
+      function resetTimer() {
+        clearInterval(interval);
+        isPaused = true;
+        isWorkTime = true;
+        minutes = workTime;
+        seconds = 0;
+        updateDisplay();
+        statusDisplay.textContent = "Work";
+      }
+
+      function countdown() {
+        if (seconds === 0) {
+          if (minutes === 0) {
+            switchMode();
+          } else {
+            minutes--;
+            seconds = 59;
+          }
+        } else {
+          seconds--;
+        }
+        updateDisplay();
+      }
+
+      function switchMode() {
+        isWorkTime = !isWorkTime;
+        minutes = isWorkTime ? workTime : breakTime;
+        seconds = 0;
+        statusDisplay.textContent = isWorkTime ? "Work" : "Break";
+      }
+
+      function updateDisplay() {
+        minutesDisplay.textContent = String(minutes).padStart(2, "0");
+        secondsDisplay.textContent = String(seconds).padStart(2, "0");
+      }
+
+      document.getElementById("start").addEventListener("click", startTimer);
+      document.getElementById("pause").addEventListener("click", pauseTimer);
+      document.getElementById("reset").addEventListener("click", resetTimer);
+
+      updateDisplay();
+    </script>
+  </body>
+</html>
+
+
+
+// TestPad 1 -> replacing all words etc from a given data
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testpad Assignment</title>
+</head>
+<body>
+    <h1>Heading</h1>
+    <p id="para">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium et ad quam ducimus atque enim, nobis doloribus repellat nesciunt aut odio placeat sint nihil consequatur qui harum provident dolor tempora.</p>
+    <p id="para2">Hey, you're not permitted in there. It's restricted. You'll be deactivated for sure.. Don't call me a mindless philosopher, you overweight glob of grease! Now come out before somebody sees you. Secret mission? What plans? What are you talking about? I'm not getting in there! I'm going to regret this. There goes another one. Hold your fire. There are no life forms.
+         It must have been short-circuited. That's funny, the damage doesn't look as bad from out here. 
+         Are you sure this things safe? Close up formation. You'd better let her loose. 
+         Almost there! I can't hold them! It's away! It's a hit! Negative. Negative! It didn't go in. 
+         It just impacted on the surface. Red Leader, we're right above you. Turn to point... oh-five, we'll cover for you. Stay there... 
+         I just lost my starboard engine. Get set to make your attack run. The Death Star plans are not in the main computer. 
+         Where are those transmissions you intercepted? What have you done with those plans? We intercepted no transmissions. 
+         Aaah....This is a consular ship. Were on a diplomatic mission. If this is a consular ship...were is the Ambassador? Commander, tear this ship apart until you've found those plans and bring me the Ambassador. 
+         I want her alive! There she is! Set for stun! She'll be all right. Inform Lord Vader we have a prisoner. What a piece of junk. 
+         She'll make point five beyond the speed of light. She may not look like much, but she's got it where it counts, kid. 
+         I've added some special modifications myself. We're a little rushed, so if you'll hurry aboard we'll get out of here. Hello, sir. Which way? All right, men. Load your weapons! Stop that ship! Blast 'em! Chewie, get us out of here! Oh, my.
+          I'd forgotten how much I hate space travel. Run, Luke! Run!</p>
+    
+    <script src="script1.js"></script>
+
+    <script>
+        //Task-1
+let collection = document.getElementsByTagName("p");
+let str = collection[0].innerText;
+
+let arr = str.split(" ");
+
+let content = ""; 
+arr.forEach((ele) => {
+    if (ele.length > 8) {
+        let span = document.createElement("span");
+        span.innerText = ele;
+        span.style.backgroundColor = "red";
+        content += span.outerHTML + " ";
+    } else {
+        content += ele + " ";
+    }
+});
+
+collection[0].innerHTML = content;
+
+console.log(content);
+
+
+
+
+//Task-2
+let link = document.createElement("a");
+link.setAttribute("href", "https://forcemipsum.com/");
+link.innerText = "Source";
+document.querySelector("body").append(link);
+
+
+
+//Task-3
+
+
+let v = collection[0].innerHTML;
+  console.log(v);
+ let arr1 = v.split('.');
+ 
+  console.log(arr1);
+  
+  let paraContent = "";
+  arr1.forEach((ele) => {
+     paraContent += ${ele}<br/>;
+  })
+
+collection[0].innerHTML=paraContent;
+
+
+
+    </script>
+
 </body>
 </html>
 
 
 
+// Validate form
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+<body>
+    <div class="container mt-2">
+        <h1>Registration Form</h1>
+        <form id="registrationForm">
+         <div class="form-group row">
+          <div class="col">
+           <input id="username" type="text" class="form-control">
+          </div>
+         </div>
+         <div class="form-group row">
+          <div class="col">
+           <input id="password" type="password" class="form-control">
+          </div>
+         </div>
+         <div class="form-group row">
+          <div class="col">
+           <input id="confirmPassword" type="password" class="form-control">
+          </div>
+         </div>
+         <div class="row">
+          <div class="col">
+            <button class="btn btn-primary btn-block">
+             Register
+           </button>
+          </div>
+         </div>
+        </form>
+       </div>
+
+       <!-- <script src="script.js"></script> -->
+
+       <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+    const formGroups=document.querySelectorAll(".form-group ");
+    const labels=["Name:","Password:","Confirm Password:"];
+
+    formGroups.forEach((group,index)=>{
+        const label=document.createElement("label");
+        label.innerText=labels[index];
+        group.prepend(label);
+    });
+});
+
+
+const inputs=document.querySelectorAll("input");
+inputs.forEach((ele)=>{
+    ele.setAttribute("required",true);
+})
+
+
+
+//task-3
+let Password=document.querySelector("#password");
+let confirmPassword=document.querySelector("#confirmPassword");
+ confirmPassword.addEventListener("input",()=>{
+    
+    let existingError = confirmPassword.parentNode.querySelector('span');
+    if (existingError) {
+        existingError.remove();
+    }
+
+    if(Password.value !== confirmPassword.value){
+        let errorSpan=document.createElement("span");
+         errorSpan.style.color="red";
+        confirmPassword.setCustomValidity("Password don't  match");
+        errorSpan.textContent="Password don't match";
+        confirmPassword.parentNode.append(errorSpan);
+    }else{
+        confirmPassword.setCustomValidity("");
+    }
+ })
 
 
 
 
+ const registrationButton=document.querySelector("button");
 
+ const checkValid=()=>{
+    let allValid=true;
+    inputs.forEach((input)=>{
+        if(!input.value || input.getAttribute('aria-invalid')=== 'true')
+        {
+           allValid=false;
+        }
+    })
+    registrationButton.disabled=!allValid;
+ }
+
+ inputs.forEach((input)=>{
+    input.addEventListener("input",()=>{
+        checkValid();
+    })
+ })
+ checkValid();
+
+
+
+ const registerForm=document.getElementById("registrationForm");
+ registerForm.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    alert(`Registration sucessfull `);
+ })
+       </script>
+</body>
+</html>
