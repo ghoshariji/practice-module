@@ -789,3 +789,69 @@ let confirmPassword=document.querySelector("#confirmPassword");
        </script>
 </body>
 </html>
+
+
+// Stop Watch
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StopWatch</title>
+</head>
+<body>
+    <div class="container">
+        <div id="timer">00 : 00 : 00</div>
+        <button id="start" onclick="startTimerFinction()">start</button>
+        <button id="pause" onclick="pauseFunction()">Pause</button>
+        <button id="reset" onclick="resetFunction()">Reset</button>
+        <!-- <script src="script.js"></script> -->
+
+        <script>
+            let t=0;
+let timerInterval;
+function startTimerFinction(){
+   
+    if(!timerInterval){
+       timer();
+    }
+}
+
+function timer(){
+    timerInterval=setInterval(()=>{
+       t+=1;
+       let hour=Math.floor(t/3600);
+       let min=Math.floor((t%3600)/60);
+       let sec=Math.floor(t-hour*3600-60*min);
+       hour=checkTimer(hour);
+       min=checkTimer(min);
+       sec=checkTimer(sec);
+       document.querySelector("#timer").innerHTML=hour +" : "+ min+" : " +sec;
+    },1000)
+}
+
+function pauseFunction(){
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+function resetFunction(){
+    clearInterval(timerInterval);
+    document.querySelector("#timer").innerHTML= "00 : 00 : 00";
+    t=0;
+    timerInterval = null;
+}
+
+function checkTimer(i){
+    if(i<10){
+        i="0"+i;
+    }
+    return i;
+}
+        </script>
+    </div>
+</body>
+</html>
